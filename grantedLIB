@@ -1604,8 +1604,8 @@ function Assets:ToggleColorpicker(Parent,ScreenAsset,Window,Colorpicker)
 	end) Colorpicker.Value = Colorpicker.Value
 end
 
-local granted = Assets:Screen()
-function granted:Window(Window)
+local grantedcc = Assets:Screen()
+function grantedcc:Window(Window)
 	Window = GetType(Window,{},"table",true)
 	Window.Blur = GetType(Window.Blur,false,"boolean")
 	Window.Name = GetType(Window.Name,"Window","string")
@@ -1613,12 +1613,12 @@ function granted:Window(Window)
 	Window.Color = GetType(Window.Color,Color3.new(1,0.5,0.25),"Color3")
 	Window.Position = GetType(Window.Position,UDim2.new(0.5,-248,0.5,-248),"UDim2")
 	Window.Size = GetType(Window.Size,UDim2.new(0,496,0,496),"UDim2")
-	local WindowAsset = Assets:Window(granted.ScreenAsset,Window)
+	local WindowAsset = Assets:Window(grantedcc.ScreenAsset,Window)
 
 	function Window:Tab(Tab)
 		Tab = GetType(Tab,{},"table",true)
 		Tab.Name = GetType(Tab.Name,"Tab","string")
-		local TabAsset = Assets:Tab(granted.ScreenAsset,WindowAsset,Window,Tab)
+		local TabAsset = Assets:Tab(grantedcc.ScreenAsset,WindowAsset,Window,Tab)
 
 		function Tab:AddConfigSection(FolderName,Side)
 			local ConfigSection = Tab:Section({Name = "Config System",Side = Side}) do
@@ -1645,7 +1645,7 @@ function granted:Window(Window)
 					if ConfigDropdown.Value and ConfigDropdown.Value[1] then
 						Window:SaveConfig(FolderName,ConfigDropdown.Value[1])
 					else
-						granted:Notification({
+						grantedcc:Notification({
 							Title = "Config System",
 							Description = "Select Config First",
 							Duration = 10
@@ -1656,7 +1656,7 @@ function granted:Window(Window)
 					if ConfigDropdown.Value and ConfigDropdown.Value[1] then
 						Window:LoadConfig(FolderName,ConfigDropdown.Value[1])
 					else
-						granted:Notification({
+						grantedcc:Notification({
 							Title = "Config System",
 							Description = "Select Config First",
 							Duration = 10
@@ -1668,7 +1668,7 @@ function granted:Window(Window)
 						Window:DeleteConfig(FolderName,ConfigDropdown.Value[1])
 						UpdateList()
 					else
-						granted:Notification({
+						grantedcc:Notification({
 							Title = "Config System",
 							Description = "Select Config First",
 							Duration = 10
@@ -1685,7 +1685,7 @@ function granted:Window(Window)
 						Window:AddToAutoLoad(FolderName,ConfigDropdown.Value[1])
 						ConfigDivider.Text = "AutoLoad Config\n<font color=\"rgb(189,189,189)\">[ " .. ConfigDropdown.Value[1] .. " ]</font>"
 					else
-						granted:Notification({
+						grantedcc:Notification({
 							Title = "Config System",
 							Description = "Select Config First",
 							Duration = 10
@@ -1715,7 +1715,7 @@ function granted:Window(Window)
 			Button = GetType(Button,{},"table",true)
 			Button.Name = GetType(Button.Name,"Button","string")
 			Button.Callback = GetType(Button.Callback,function() end,"function")
-			Assets:Button(ChooseTabSide(TabAsset,Button.Side),granted.ScreenAsset,Window,Button)
+			Assets:Button(ChooseTabSide(TabAsset,Button.Side),grantedcc.ScreenAsset,Window,Button)
 			return Button
 		end
 		function Tab:Toggle(Toggle)
@@ -1728,7 +1728,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Toggle
 			Window.Flags[Toggle.Flag] = Toggle.Value
 
-			local ToggleAsset = Assets:Toggle(ChooseTabSide(TabAsset,Toggle.Side),granted.ScreenAsset,Window,Toggle)
+			local ToggleAsset = Assets:Toggle(ChooseTabSide(TabAsset,Toggle.Side),grantedcc.ScreenAsset,Window,Toggle)
 			function Toggle:Keybind(Keybind)
 				Keybind = GetType(Keybind,{},"table",true)
 				Keybind.Flag = GetType(Keybind.Flag,Toggle.Flag .. "/Keybind","string")
@@ -1740,7 +1740,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Keybind
 				Window.Flags[Keybind.Flag] = Keybind.Value
 
-				Assets:ToggleKeybind(ToggleAsset.Layout,granted.ScreenAsset,Window,Keybind,Toggle)
+				Assets:ToggleKeybind(ToggleAsset.Layout,grantedcc.ScreenAsset,Window,Keybind,Toggle)
 				return Keybind
 			end
 			function Toggle:Colorpicker(Colorpicker)
@@ -1752,7 +1752,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Colorpicker
 				Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 
-				Assets:ToggleColorpicker(ToggleAsset.Layout,granted.ScreenAsset,Window,Colorpicker)
+				Assets:ToggleColorpicker(ToggleAsset.Layout,grantedcc.ScreenAsset,Window,Colorpicker)
 				return Colorpicker
 			end
 			return Toggle
@@ -1771,7 +1771,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Slider
 			Window.Flags[Slider.Flag] = Slider.Value
 
-			Assets:Slider(ChooseTabSide(TabAsset,Slider.Side),granted.ScreenAsset,Window,Slider)
+			Assets:Slider(ChooseTabSide(TabAsset,Slider.Side),grantedcc.ScreenAsset,Window,Slider)
 			return Slider
 		end
 		function Tab:Textbox(Textbox)
@@ -1786,7 +1786,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Textbox
 			Window.Flags[Textbox.Flag] = Textbox.Value
 
-			Assets:Textbox(ChooseTabSide(TabAsset,Textbox.Side),granted.ScreenAsset,Window,Textbox)
+			Assets:Textbox(ChooseTabSide(TabAsset,Textbox.Side),grantedcc.ScreenAsset,Window,Textbox)
 			return Textbox
 		end
 		function Tab:Keybind(Keybind)
@@ -1801,7 +1801,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Keybind
 			Window.Flags[Keybind.Flag] = Keybind.Value
 
-			Assets:Keybind(ChooseTabSide(TabAsset,Keybind.Side),granted.ScreenAsset,Window,Keybind)
+			Assets:Keybind(ChooseTabSide(TabAsset,Keybind.Side),grantedcc.ScreenAsset,Window,Keybind)
 			return Keybind
 		end
 		function Tab:Dropdown(Dropdown)
@@ -1812,7 +1812,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Dropdown
 			Window.Flags[Dropdown.Flag] = Dropdown.Value
 
-			Assets:Dropdown(ChooseTabSide(TabAsset,Dropdown.Side),granted.ScreenAsset,Window,Dropdown)
+			Assets:Dropdown(ChooseTabSide(TabAsset,Dropdown.Side),grantedcc.ScreenAsset,Window,Dropdown)
 			return Dropdown
 		end
 		function Tab:Colorpicker(Colorpicker)
@@ -1825,7 +1825,7 @@ function granted:Window(Window)
 			Window.Elements[#Window.Elements + 1] = Colorpicker
 			Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 
-			Assets:Colorpicker(ChooseTabSide(TabAsset,Colorpicker.Side),granted.ScreenAsset,Window,Colorpicker)
+			Assets:Colorpicker(ChooseTabSide(TabAsset,Colorpicker.Side),grantedcc.ScreenAsset,Window,Colorpicker)
 			return Colorpicker
 		end
 		function Tab:Section(Section)
@@ -1849,7 +1849,7 @@ function granted:Window(Window)
 				Button = GetType(Button,{},"table",true)
 				Button.Name = GetType(Button.Name,"Button","string")
 				Button.Callback = GetType(Button.Callback,function() end,"function")
-				Assets:Button(SectionContainer,granted.ScreenAsset,Window,Button)
+				Assets:Button(SectionContainer,grantedcc.ScreenAsset,Window,Button)
 				return Button
 			end
 			function Section:Toggle(Toggle)
@@ -1862,7 +1862,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Toggle
 				Window.Flags[Toggle.Flag] = Toggle.Value
 
-				local ToggleAsset = Assets:Toggle(SectionContainer,granted.ScreenAsset,Window,Toggle)
+				local ToggleAsset = Assets:Toggle(SectionContainer,grantedcc.ScreenAsset,Window,Toggle)
 				function Toggle:Keybind(Keybind)
 					Keybind = GetType(Keybind,{},"table",true)
 					Keybind.Flag = GetType(Keybind.Flag,Toggle.Flag .. "/Keybind","string")
@@ -1874,7 +1874,7 @@ function granted:Window(Window)
 					Window.Elements[#Window.Elements + 1] = Keybind
 					Window.Flags[Keybind.Flag] = Keybind.Value
 
-					Assets:ToggleKeybind(ToggleAsset.Layout,granted.ScreenAsset,Window,Keybind,Toggle)
+					Assets:ToggleKeybind(ToggleAsset.Layout,grantedcc.ScreenAsset,Window,Keybind,Toggle)
 					return Keybind
 				end
 				function Toggle:Colorpicker(Colorpicker)
@@ -1886,7 +1886,7 @@ function granted:Window(Window)
 					Window.Elements[#Window.Elements + 1] = Colorpicker
 					Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 
-					Assets:ToggleColorpicker(ToggleAsset.Layout,granted.ScreenAsset,Window,Colorpicker)
+					Assets:ToggleColorpicker(ToggleAsset.Layout,grantedcc.ScreenAsset,Window,Colorpicker)
 					return Colorpicker
 				end
 				return Toggle
@@ -1905,7 +1905,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Slider
 				Window.Flags[Slider.Flag] = Slider.Value
 
-				Assets:Slider(SectionContainer,granted.ScreenAsset,Window,Slider)
+				Assets:Slider(SectionContainer,grantedcc.ScreenAsset,Window,Slider)
 				return Slider
 			end
 			function Section:Textbox(Textbox)
@@ -1920,7 +1920,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Textbox
 				Window.Flags[Textbox.Flag] = Textbox.Value
 
-				Assets:Textbox(SectionContainer,granted.ScreenAsset,Window,Textbox)
+				Assets:Textbox(SectionContainer,grantedcc.ScreenAsset,Window,Textbox)
 				return Textbox
 			end
 			function Section:Keybind(Keybind)
@@ -1935,7 +1935,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Keybind
 				Window.Flags[Keybind.Flag] = Keybind.Value
 
-				Assets:Keybind(SectionContainer,granted.ScreenAsset,Window,Keybind)
+				Assets:Keybind(SectionContainer,grantedcc.ScreenAsset,Window,Keybind)
 				return Keybind
 			end
 			function Section:Dropdown(Dropdown)
@@ -1946,7 +1946,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Dropdown
 				Window.Flags[Dropdown.Flag] = Dropdown.Value
 
-				Assets:Dropdown(SectionContainer,granted.ScreenAsset,Window,Dropdown)
+				Assets:Dropdown(SectionContainer,grantedcc.ScreenAsset,Window,Dropdown)
 				return Dropdown
 			end
 			function Section:Colorpicker(Colorpicker)
@@ -1959,7 +1959,7 @@ function granted:Window(Window)
 				Window.Elements[#Window.Elements + 1] = Colorpicker
 				Window.Flags[Colorpicker.Flag] = Colorpicker.Value
 
-				Assets:Colorpicker(SectionContainer,granted.ScreenAsset,Window,Colorpicker)
+				Assets:Colorpicker(SectionContainer,grantedcc.ScreenAsset,Window,Colorpicker)
 				return Colorpicker
 			end
 			return Section
@@ -1970,13 +1970,13 @@ function granted:Window(Window)
 end
 
 -- NDHandle = NotificationDescriptionHandle
-function granted:Notification(Notification)
+function grantedcc:Notification(Notification)
 	Notification = GetType(Notification,{},"table")
 	Notification.Title = GetType(Notification.Title,"Title","string")
 	Notification.Description = GetType(Notification.Description,"Description","string")
 
 	local NotificationAsset = GetAsset("Notification/ND")
-	NotificationAsset.Parent = granted.ScreenAsset.NDHandle
+	NotificationAsset.Parent = grantedcc.ScreenAsset.NDHandle
 	NotificationAsset.Title.Text = Notification.Title
 	NotificationAsset.Description.Text = Notification.Description
 	NotificationAsset.Title.Size = UDim2.new(1,0,0,NotificationAsset.Title.TextBounds.Y)
@@ -2009,14 +2009,14 @@ function granted:Notification(Notification)
 end
 
 -- NLHandle = NotificationLineHandle
-function granted:Notification2(Notification)
+function grantedcc:Notification2(Notification)
 	Notification = GetType(Notification,{},"table")
 	Notification.Title = GetType(Notification.Title,"Title","string")
 	Notification.Duration = GetType(Notification.Duration,5,"number")
 	Notification.Color = GetType(Notification.Color,Color3.new(1,0.5,0.25),"Color3")
 
 	local NotificationAsset = GetAsset("Notification/NL")
-	NotificationAsset.Parent = granted.ScreenAsset.NLHandle
+	NotificationAsset.Parent = grantedcc.ScreenAsset.NLHandle
 	NotificationAsset.Main.Title.Text = Notification.Title
 	NotificationAsset.Main.GLine.BackgroundColor3 = Notification.Color
 
@@ -2044,4 +2044,4 @@ function granted:Notification2(Notification)
 	end)
 end
 
-return granted
+return grantedcc
